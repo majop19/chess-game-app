@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { SiteConfig } from "@/lib/site-config";
 import { Providers } from "./providers";
 import { TailwindIndicator } from "@/components/TailwindIndicator";
+import { SideBar } from "@/components/side-bar";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -33,6 +34,7 @@ export default async function RootLayout({
       >
         <Providers>
           <div className="relative flex min-h-screen min-w-full flex-col justify-center">
+            <SideBar />
             <div className="w-full h-full">
               {children}
               {auth}

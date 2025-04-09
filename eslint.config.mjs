@@ -2,8 +2,9 @@ import { fixupConfigRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import pluginJs from "@eslint/js";
 import hooksPlugin from "eslint-plugin-react-hooks";
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
-import tailwind from "eslint-plugin-tailwindcss";
+import pluginReactConfig, {
+  plugins,
+} from "eslint-plugin-react/configs/recommended.js";
 import globals from "globals";
 
 const compat = new FlatCompat();
@@ -12,9 +13,16 @@ export default [
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
   { languageOptions: { globals: globals.browser } },
+  {
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    plugins: ["react"],
+  },
   pluginJs.configs.recommended,
   // Tailwind
-  ...tailwind.configs["flat/recommended"],
   // React
   ...fixupConfigRules(pluginReactConfig),
   {

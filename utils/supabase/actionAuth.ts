@@ -23,9 +23,9 @@ export const signUpAction = async ({
   });
 
   if (error) {
-    return redirect("/sign-up");
+    return redirect("/login");
   } else {
-    return redirect("/sign-up");
+    return redirect("/login");
   }
 };
 
@@ -101,4 +101,22 @@ export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
   return redirect("/sign-in");
+};
+
+export const signUpGithubAction = async () => {
+  const supabase = await createClient();
+  const origin = (await headers()).get("origin");
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+    options: {
+      redirectTo: `${origin}`,
+    },
+  });
+
+  if (error) {
+    return;
+  } else {
+    redirect(data.url);
+  }
 };
